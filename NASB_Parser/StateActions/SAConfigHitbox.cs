@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using NASB_Parser.FloatSources;
 
 namespace NASB_Parser.StateActions
 {
@@ -8,13 +9,14 @@ namespace NASB_Parser.StateActions
     {
         public int Hitbox { get; set; }
         public bool ForceZ0 { get; set; }
-        public float Radius { get; set; }
+        public FloatSource Radius { get; set; }
         public Vector3 LocalOffset { get; set; }
         public Vector3 WorldOffset { get; set; }
         public string Prop { get; set; }
         public string Bone { get; set; }
         public string FxId { get; set; }
         public string SfxId { get; set; }
+        public bool Inactive { get; set; }
         public bool SecondTrack { get; set; }
         public string Bone2 { get; set; }
         public Vector3 LocalOffset2 { get; set; }
@@ -27,10 +29,19 @@ namespace NASB_Parser.StateActions
         internal SAConfigHitbox(BulkSerializeReader reader) : base(reader)
         {
             Hitbox = reader.ReadInt();
-            ForceZ0 = reader.ReadBool();
-            Radius = reader.ReadFloat();
-            LocalOffset = reader.ReadVector3();
-            WorldOffset = reader.ReadVector3();
+            Inactive = reader.ReadBool();
+            if (Version > 1)
+            {
+                Radius = FloatSource.Read(reader);
+                LocalOffset = reader.ReadVector3(true);
+                WorldOffset = reader.ReadVector3(true);
+            }
+            else
+            {
+                Radius = new FSValue(reader.ReadFloat());
+                LocalOffset = reader.ReadVector3();
+                WorldOffset = reader.ReadVector3();
+            }
             Prop = reader.ReadString();
             Bone = reader.ReadString();
             FxId = reader.ReadString();
@@ -41,8 +52,8 @@ namespace NASB_Parser.StateActions
                 if (SecondTrack)
                 {
                     Bone2 = reader.ReadString();
-                    LocalOffset2 = reader.ReadVector3();
-                    WorldOffset2 = reader.ReadVector3();
+                    LocalOffset2 = reader.ReadVector3(true);
+                    WorldOffset2 = reader.ReadVector3(true);
                 }
             }
         }
@@ -50,9 +61,9 @@ namespace NASB_Parser.StateActions
         public override void Write(BulkSerializeWriter writer)
         {
             writer.Write(TID);
-            writer.Write(1);
+            writer.Write(2);
             writer.Write(Hitbox);
-            writer.Write(0);
+            writer.Write(Inactive);
             writer.Write(Radius);
             writer.Write(LocalOffset);
             writer.Write(WorldOffset);
