@@ -4,16 +4,16 @@ using System.Text;
 
 namespace NASB_Parser.CheckThings
 {
-    public class CTDoubleTapId : CheckThing
+    public class CTDoubleTap : CheckThing
     {
         public SimpleControlDir TapDir { get; set; }
         public int Window { get; set; }
 
-        public CTDoubleTapId()
+        public CTDoubleTap()
         {
         }
 
-        internal CTDoubleTapId(BulkSerializeReader reader) : base(reader)
+        internal CTDoubleTap(BulkSerializeReader reader) : base(reader)
         {
             TapDir = (SimpleControlDir)reader.ReadInt();
             Window = reader.ReadInt();
