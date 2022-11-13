@@ -23,33 +23,11 @@ namespace NASB_Parser.Jumps
 
         internal AirDashJump(BulkSerializeReader reader) : base(reader)
         {
-            EaseSpeed = (Ease)reader.ReadInt();
-            XDir = FloatSource.Read(reader);
-            YDir = FloatSource.Read(reader);
-            SpeedStart = FloatSource.Read(reader);
-            SpeedEnd = FloatSource.Read(reader);
-            SpeedUpMult = FloatSource.Read(reader);
-            if (Version > 0)
-            {
-                SpeedDownMult = FloatSource.Read(reader);
-            }
-            Frames = FloatSource.Read(reader);
-            RedirectFrames = FloatSource.Read(reader);
         }
 
         public override void Write(BulkSerializeWriter writer)
         {
-            writer.Write(TID);
-            writer.Write(1);
-            writer.Write(EaseSpeed);
-            writer.Write(XDir);
-            writer.Write(YDir);
-            writer.Write(SpeedStart);
-            writer.Write(SpeedEnd);
-            writer.Write(SpeedUpMult);
-            writer.Write(SpeedDownMult);
-            writer.Write(Frames);
-            writer.Write(RedirectFrames);
+            base.Write(writer);
         }
     }
 }
