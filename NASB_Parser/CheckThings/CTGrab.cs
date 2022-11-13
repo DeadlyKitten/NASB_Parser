@@ -4,15 +4,15 @@ using System.Text;
 
 namespace NASB_Parser.CheckThings
 {
-    public class CTGrabId : CheckThing
+    public class CTGrab : CheckThing
     {
         public CheckTypes CheckType { get; set; }
 
-        public CTGrabId()
+        public CTGrab()
         {
         }
 
-        internal CTGrabId(BulkSerializeReader reader) : base(reader)
+        internal CTGrab(BulkSerializeReader reader) : base(reader)
         {
             CheckType = (CheckTypes)reader.ReadInt();
         }
