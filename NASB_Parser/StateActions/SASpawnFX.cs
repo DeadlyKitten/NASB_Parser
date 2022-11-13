@@ -33,8 +33,8 @@ namespace NASB_Parser.StateActions
             BoneDir = reader.ReadBool();
             Id = reader.ReadString();
             Bone = reader.ReadString();
-            LocalOffset = reader.ReadVector3();
-            GlobalOffset = reader.ReadVector3();
+            LocalOffset = reader.ReadVector3(Version > 0);
+            GlobalOffset = reader.ReadVector3(Version > 0);
             DirX = FloatSource.Read(reader);
             DirY = FloatSource.Read(reader);
             DirZ = FloatSource.Read(reader);
@@ -46,6 +46,7 @@ namespace NASB_Parser.StateActions
 
         public override void Write(BulkSerializeWriter writer)
         {
+            Version = 1;
             base.Write(writer);
             writer.Write(Dynamic);
             writer.Write(Track);
