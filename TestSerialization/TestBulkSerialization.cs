@@ -8,15 +8,22 @@ namespace TestSerialization
 {
     public class TestBulkSerialization
     {
+        private const int INT_COUNT = 6383;
+        private const int FLOAT_COUNT = 74;
+        private const int FLOAT_IDX_COUNT = 1341;
+        private const int STRING_COUNT = 198;
+        private const int STRING_IDX_COUNT = 815;
+        private const int STATE_COUNT = 26;
+
         [Fact]
         public void TestDeserialize()
         {
             var ser = new BulkSerializeReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("TestSerialization.char_apple.txt"));
-            Assert.Equal(5495, ser.IntCount);
-            Assert.Equal(67, ser.FloatCount);
-            Assert.Equal(1461, ser.FloatIdxCount);
-            Assert.Equal(199, ser.StringCount);
-            Assert.Equal(975, ser.StringIdxCount);
+            Assert.Equal(INT_COUNT, ser.IntCount);
+            Assert.Equal(FLOAT_COUNT, ser.FloatCount);
+            Assert.Equal(FLOAT_IDX_COUNT, ser.FloatIdxCount);
+            Assert.Equal(STRING_COUNT, ser.StringCount);
+            Assert.Equal(STRING_IDX_COUNT, ser.StringIdxCount);
         }
 
         [Fact]
@@ -24,18 +31,18 @@ namespace TestSerialization
         {
             var ser = new BulkSerializeReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("TestSerialization.char_apple.txt"));
             var type = new SerialMoveset(ser);
-            Assert.Equal(26, type.States.Count);
+            Assert.Equal(STATE_COUNT, type.States.Count);
         }
 
         [Fact]
         public void TestRoundTrip()
         {
             var ser = new BulkSerializeReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("TestSerialization.char_apple.txt"));
-            Assert.Equal(5495, ser.IntCount);
-            Assert.Equal(67, ser.FloatCount);
-            Assert.Equal(1461, ser.FloatIdxCount);
-            Assert.Equal(199, ser.StringCount);
-            Assert.Equal(975, ser.StringIdxCount);
+            Assert.Equal(INT_COUNT, ser.IntCount);
+            Assert.Equal(FLOAT_COUNT, ser.FloatCount);
+            Assert.Equal(FLOAT_IDX_COUNT, ser.FloatIdxCount);
+            Assert.Equal(STRING_COUNT, ser.StringCount);
+            Assert.Equal(STRING_IDX_COUNT, ser.StringIdxCount);
             var writer = new BulkSerializeWriter();
             while (ser.NextInt < ser.IntCount)
             {
@@ -55,11 +62,11 @@ namespace TestSerialization
             innerS.Flush();
             stream.Seek(0, SeekOrigin.Begin);
             var ser2 = new BulkSerializeReader(stream);
-            Assert.Equal(5495, ser2.IntCount);
-            Assert.Equal(67, ser2.FloatCount);
-            Assert.Equal(1461, ser2.FloatIdxCount);
-            Assert.Equal(199, ser2.StringCount);
-            Assert.Equal(975, ser2.StringIdxCount);
+            Assert.Equal(INT_COUNT, ser2.IntCount);
+            Assert.Equal(FLOAT_COUNT, ser2.FloatCount);
+            Assert.Equal(FLOAT_IDX_COUNT, ser2.FloatIdxCount);
+            Assert.Equal(STRING_COUNT, ser2.StringCount);
+            Assert.Equal(STRING_IDX_COUNT, ser2.StringIdxCount);
             ser.Reset();
             while (ser.NextInt < ser.IntCount)
             {
@@ -79,28 +86,28 @@ namespace TestSerialization
         public void TestParseType()
         {
             var ser = new BulkSerializeReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("TestSerialization.char_apple.txt"));
-            Assert.Equal(5495, ser.IntCount);
-            Assert.Equal(67, ser.FloatCount);
-            Assert.Equal(1461, ser.FloatIdxCount);
-            Assert.Equal(199, ser.StringCount);
-            Assert.Equal(975, ser.StringIdxCount);
+            Assert.Equal(INT_COUNT, ser.IntCount);
+            Assert.Equal(FLOAT_COUNT, ser.FloatCount);
+            Assert.Equal(FLOAT_IDX_COUNT, ser.FloatIdxCount);
+            Assert.Equal(STRING_COUNT, ser.StringCount);
+            Assert.Equal(STRING_IDX_COUNT, ser.StringIdxCount);
             var typeInfo = new SerialMoveset(ser);
             var writer = new BulkSerializeWriter();
             typeInfo.Write(writer);
-            Assert.Equal(5495, writer.IntCount);
-            Assert.Equal(1461, writer.FloatCount);
-            Assert.Equal(975, writer.StringCount);
+            Assert.Equal(INT_COUNT, writer.IntCount);
+            Assert.Equal(FLOAT_IDX_COUNT, writer.FloatCount);
+            Assert.Equal(STRING_IDX_COUNT, writer.StringCount);
             using var stream = new MemoryStream();
             using var innerS = new StreamWriter(stream);
             writer.Serialize(innerS);
             innerS.Flush();
             stream.Seek(0, SeekOrigin.Begin);
             var ser2 = new BulkSerializeReader(stream);
-            Assert.Equal(5495, ser2.IntCount);
-            Assert.Equal(67, ser2.FloatCount);
-            Assert.Equal(1461, ser2.FloatIdxCount);
-            Assert.Equal(199, ser2.StringCount);
-            Assert.Equal(975, ser2.StringIdxCount);
+            Assert.Equal(INT_COUNT, ser2.IntCount);
+            Assert.Equal(FLOAT_COUNT, ser2.FloatCount);
+            Assert.Equal(FLOAT_IDX_COUNT, ser2.FloatIdxCount);
+            Assert.Equal(STRING_COUNT, ser2.StringCount);
+            Assert.Equal(STRING_IDX_COUNT, ser2.StringIdxCount);
             var typeInfo2 = new SerialMoveset(ser2);
             ser2.Reset();
             ser.Reset();
