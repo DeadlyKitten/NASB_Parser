@@ -31,11 +31,11 @@ namespace NASB_Parser.CheckThings
             {
                 TypeId.MultipleId => new CTMultiple(reader),
                 TypeId.CompareId => new CTCompareFloat(reader),
-                TypeId.DoubleTapId => new CTDoubleTapId(reader),
+                TypeId.DoubleTapId => new CTDoubleTap(reader),
                 TypeId.InputId => new CTInput(reader),
                 TypeId.InputSeriesId => new CTInputSeries(reader),
                 TypeId.TechId => new CTCheckTech(reader),
-                TypeId.GrabId => new CTGrabId(reader),
+                TypeId.GrabId => new CTGrab(reader),
                 TypeId.GrabAgentId => new CTGrabbedAgent(reader),
                 TypeId.SkinId => new CTSkin(reader),
                 TypeId.MoveId => new CTMove(reader),
