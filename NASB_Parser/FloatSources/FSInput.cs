@@ -34,7 +34,10 @@ namespace NASB_Parser.FloatSources
             Jump,
             Defend,
             Fun,
-            Grabmacro
+            Grabmacro,
+            CtrlX2nd,
+            CtrlX2ndRaw,
+            CtrlY2nd
         }
     }
 }
