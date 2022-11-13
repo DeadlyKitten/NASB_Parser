@@ -8,7 +8,9 @@ namespace NASB_Parser.StateActions
     public class StateAction : ISerializable
     {
         public TypeId TID { get; private set; }
-        public int Version { get; private set; }
+        public int Version { get; protected set; }
+
+        public static int Count = 0;
 
         public StateAction()
         {
@@ -19,6 +21,7 @@ namespace NASB_Parser.StateActions
             // Reads past two ints
             TID = (TypeId)reader.ReadInt();
             Version = reader.ReadInt();
+            Count++;
         }
 
         public virtual void Write(BulkSerializeWriter writer)
@@ -42,7 +45,7 @@ namespace NASB_Parser.StateActions
                 TypeId.CancelStateId => new SACancelToState(reader),
                 TypeId.CustomCallId => new SACustomCall(reader),
                 TypeId.TimerId => new SATimedAction(reader),
-                TypeId.OrderId => new SAOrderedSensitive(reader),
+                TypeId.OrderId => new SAOrderSensitive(reader),
                 TypeId.ProxyId => new SAProxyMove(reader),
                 TypeId.CheckId => new SACheckThing(reader),
                 TypeId.ActiveActionId => new SAActiveAction(reader),
@@ -106,6 +109,11 @@ namespace NASB_Parser.StateActions
                 TypeId.ForceExtraInputId => new SAForceExtraInputCheck(reader),
                 TypeId.LaunchGrabbedCustomId => new SALaunchGrabbedCustom(reader),
                 TypeId.MapAnimSimpleId => new SAMapAnimationSimple(reader),
+                TypeId.PersistLocalFXId => new SAPersistLocalFX(reader),
+                TypeId.PlayVoiceLineId => new SAPlayVoiceLine(reader),
+                TypeId.PlayCategoryVoiceLineId => new SAPlayCategoryVoiceLine(reader),
+                TypeId.StopCharacterVoiceLinesId => new SAStopVoiceLines(reader),
+                TypeId.OnLeaveParentId => new SAOnLeaveParent(reader),
                 TypeId.BaseIdentifier => new StateAction(reader),
                 _ => throw new ReadException(reader, $"Could not parse valid {nameof(StateAction)} type from: {reader.PeekInt()}!"),
             };
@@ -188,7 +196,12 @@ namespace NASB_Parser.StateActions
             SampleAnimId,
             ForceExtraInputId,
             LaunchGrabbedCustomId,
-            MapAnimSimpleId
+            MapAnimSimpleId,
+            PersistLocalFXId,
+            OnLeaveParentId,
+            PlayVoiceLineId = 100,
+            PlayCategoryVoiceLineId = 101,
+            StopCharacterVoiceLinesId = 102
         }
     }
 }
