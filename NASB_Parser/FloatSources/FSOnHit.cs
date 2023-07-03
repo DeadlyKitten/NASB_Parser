@@ -31,14 +31,15 @@ namespace NASB_Parser.FloatSources
             Hitpos_z,
             Hitwasinvincible,
             Hitwasblock,
-            Hitwellblocked = 6,
+            Hurtdamage,
+            Hitwellblocked,
             Hitperfectblocked,
-            Hurtdamage = 5,
-            Hurtknockback = 12,
-            Hitdamage = 9,
-            Hurtwellblocked = 11,
-            Hurtperfectblocked = 8,
-            Hurtattacktype = 10
+            Hurtperfectblocked,
+            Hitdamage,
+            Hurtattacktype,
+            Hurtwellblocked,
+            Hurtknockback,
+            HitWasClean,
         }
     }
 }

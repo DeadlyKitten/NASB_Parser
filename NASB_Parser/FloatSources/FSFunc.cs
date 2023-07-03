@@ -63,7 +63,9 @@ namespace NASB_Parser.FloatSources
             RoundToInt,
             Max,
             Min,
-            Pi
+            Pi,
+            Frame,
+            InvFrame
         }
     }
 }

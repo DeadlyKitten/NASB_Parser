@@ -14,6 +14,12 @@ namespace NASB_Parser.FloatSources
         {
         }
 
+        public FloatSource(float f)
+        {
+            TID = TypeId.FloatId;
+            Version = 2;
+        }
+
         internal FloatSource(BulkSerializeReader reader)
         {
             TID = (TypeId)reader.ReadInt();
@@ -61,6 +67,7 @@ namespace NASB_Parser.FloatSources
                 case TypeId.JumpsId: floatSource = new FSJumps(reader); break;
                 case TypeId.RootAnimId: floatSource = new FSRootAnim(reader); break;
                 case TypeId.FloatId: floatSource = new FSValue(reader); break;
+                case TypeId.LastAtkId: floatSource = new FSLastAtk(reader); break;
                 default:  throw new ReadException(reader, $"Could not parse valid {nameof(FloatSource)} type from: {reader.PeekInt()}!");
             }
             return floatSource;
@@ -97,7 +104,8 @@ namespace NASB_Parser.FloatSources
             ItemId,
             ModeId,
             JumpsId,
-            RootAnimId
+            RootAnimId,
+            LastAtkId
         }
     }
 }
