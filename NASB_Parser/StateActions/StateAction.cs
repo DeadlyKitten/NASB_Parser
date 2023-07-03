@@ -44,7 +44,7 @@ namespace NASB_Parser.StateActions
                 case TypeId.CancelStateId: stateAction = new SACancelToState(reader); break;
                 case TypeId.CustomCallId: stateAction = new SACustomCall(reader); break;
                 case TypeId.TimerId: stateAction = new SATimedAction(reader); break;
-                case TypeId.OrderId: stateAction = new SAOrderedSensitive(reader); break;
+                case TypeId.OrderId: stateAction = new SAOrderSensitive(reader); break;
                 case TypeId.ProxyId: stateAction = new SAProxyMove(reader); break;
                 case TypeId.CheckId: stateAction = new SACheckThing(reader); break;
                 case TypeId.ActiveActionId: stateAction = new SAActiveAction(reader); break;
@@ -109,6 +109,9 @@ namespace NASB_Parser.StateActions
                 case TypeId.LaunchGrabbedCustomId: stateAction = new SALaunchGrabbedCustom(reader); break;
                 case TypeId.MapAnimSimpleId: stateAction = new SAMapAnimationSimple(reader); break;
                 case TypeId.PersistLocalFXId: stateAction = new SAPersistLocalFX(reader); break;
+                case TypeId.PlayVoiceLineId: stateAction = new SAPlayVoiceLine(reader); break;
+                case TypeId.PlayCategoryVoiceLineId: stateAction = new SAPlayCategoryVoiceLine(reader); break;
+                case TypeId.StopCharacterVoiceLinesId: stateAction = new SAStopVoiceLines(reader); break;
                 case TypeId.OnLeaveParentId: stateAction = new SAOnLeaveParent(reader); break;
                 case TypeId.BaseIdentifier: stateAction = new StateAction(reader); break;
                 default:  throw new ReadException(reader, $"Could not parse valid {nameof(StateAction)} type from: {reader.PeekInt()}!");
@@ -196,7 +199,10 @@ namespace NASB_Parser.StateActions
             LaunchGrabbedCustomId,
             MapAnimSimpleId,
             PersistLocalFXId,
-            OnLeaveParentId
+            OnLeaveParentId,
+            PlayVoiceLineId = 100,
+            PlayCategoryVoiceLineId = 101,
+            StopCharacterVoiceLinesId = 102
         }
     }
 }

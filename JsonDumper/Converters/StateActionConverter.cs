@@ -31,7 +31,7 @@ namespace JsonDumper.Converters
                     TypeId.CancelStateId => new SACancelToState(),
                     TypeId.CustomCallId => new SACustomCall(),
                     TypeId.TimerId => new SATimedAction(),
-                    TypeId.OrderId => new SAOrderedSensitive(),
+                    TypeId.OrderId => new SAOrderSensitive(),
                     TypeId.ProxyId => new SAProxyMove(),
                     TypeId.CheckId => new SACheckThing(),
                     TypeId.ActiveActionId => new SAActiveAction(),

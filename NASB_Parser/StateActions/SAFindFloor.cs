@@ -8,7 +8,6 @@ namespace NASB_Parser.StateActions
 	[Serializable]
     public class SAFindFloor : StateAction
     {
-        public float SeekRange { get; set; }
         public FloatSource Range { get; set; }
 
         public SAFindFloor()
@@ -16,19 +15,12 @@ namespace NASB_Parser.StateActions
 
         internal SAFindFloor(BulkSerializeReader reader) : base(reader)
         {
-            if (Version < 1)
-            {
-                SeekRange = reader.ReadFloat();
-                Range = new FSValue(SeekRange);
-            }
-            else
-            {
-                Range = FloatSource.Read(reader);
-            }
+            Range = (Version > 0) ? FloatSource.Read(reader) : new FSValue(reader.ReadFloat());
         }
 
         public override void Write(BulkSerializeWriter writer)
         {
+            Version = 1;
             base.Write(writer);
             writer.Write(Range);
         }

@@ -43,8 +43,8 @@ namespace NASB_Parser.StateActions
             Bank = reader.ReadString();
             Id = reader.ReadString();
             Bone = reader.ReadString();
-            LocalOffset = reader.ReadVector3();
-            WorldOffset = reader.ReadVector3();
+            LocalOffset = reader.ReadVector3(Version > 2);
+            WorldOffset = reader.ReadVector3(Version > 2);
             CustomSpawnMovement = reader.ReadBool();
             Movements = reader.ReadList(r => new SpawnMovement(r));
             SpawnedAgentDataId = reader.ReadString();
@@ -76,8 +76,8 @@ namespace NASB_Parser.StateActions
 
         public override void Write(BulkSerializeWriter writer)
         {
-            writer.Write(TID);
-            writer.Write(2);
+            Version = 3;
+            base.Write(writer);
             writer.Write(Bank);
             writer.Write(Id);
             writer.Write(Bone);

@@ -1,3 +1,4 @@
+using NASB_Parser.FloatSources;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,7 +8,7 @@ namespace NASB_Parser.StateActions
 	[Serializable]
     public class SAStandardInput : StateAction
     {
-        public float Frames { get; set; }
+        public FloatSource Frames { get; set; }
         public bool ForceCheck { get; set; }
         public StandardConfig Config { get; set; }
 
@@ -17,13 +18,14 @@ namespace NASB_Parser.StateActions
 
         internal SAStandardInput(BulkSerializeReader reader) : base(reader)
         {
-            Frames = reader.ReadFloat();
+            Frames = Version > 0 ? FloatSource.Read(reader) : new FSValue(reader);
             ForceCheck = reader.ReadBool();
             Config = new StandardConfig(reader);
         }
 
         public override void Write(BulkSerializeWriter writer)
         {
+            Version = 1;
             base.Write(writer);
             writer.Write(Frames);
             writer.Write(ForceCheck);

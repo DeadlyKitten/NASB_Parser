@@ -27,6 +27,7 @@ namespace NASB_Parser.StateActions
 
         public override void Write(BulkSerializeWriter writer)
         {
+            Version = 1;
             base.Write(writer);
             writer.Write(StopAll);
             writer.Write(JumpId);

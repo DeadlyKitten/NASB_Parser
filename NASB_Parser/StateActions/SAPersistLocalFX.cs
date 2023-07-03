@@ -7,7 +7,6 @@ namespace NASB_Parser.StateActions
 	[Serializable]
 	public class SAPersistLocalFX : StateAction
 	{
-		public string Id { get; set; }
 		public FloatSource Persist { get; set; }
 		public bool MaxOut { get; set; }
 
@@ -17,7 +16,6 @@ namespace NASB_Parser.StateActions
 
 		public SAPersistLocalFX(BulkSerializeReader reader) : base(reader)
 		{
-			Id = reader.ReadString();
 			Persist = FloatSource.Read(reader);
 			MaxOut = reader.ReadBool();
 		}
@@ -25,7 +23,6 @@ namespace NASB_Parser.StateActions
 		public override void Write(BulkSerializeWriter writer)
 		{
 			base.Write(writer);
-			writer.AddString(Id);
 			if (Persist == null)
 				Persist = new FSValue(-1f);
 			writer.Write(Persist);

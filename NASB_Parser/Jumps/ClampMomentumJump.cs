@@ -4,18 +4,19 @@ using System.Text;
 
 namespace NASB_Parser.Jumps
 {
-	[Serializable]
-	public class ClampMomentumJump : Jump
-	{
-		public ClampMomentumJump()
-		{ }
+    public class ClampMomentumJump : Jump
+    {
+        public ClampMomentumJump()
+        {
+        }
 
-		internal ClampMomentumJump(BulkSerializeReader reader) : base(reader)
-		{ }
+        internal ClampMomentumJump(BulkSerializeReader reader) : base(reader)
+        {
+        }
 
-		public override void Write(BulkSerializeWriter writer)
-		{
-			base.Write(writer);
-		}
-	}
+        public override void Write(BulkSerializeWriter writer)
+        {
+            base.Write(writer);
+        }
+    }
 }
