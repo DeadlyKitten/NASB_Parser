@@ -33,11 +33,11 @@ namespace NASB_Parser.CheckThings
             {
                 case TypeId.MultipleId: thing = new CTMultiple(reader); break;
                 case TypeId.CompareId: thing = new CTCompareFloat(reader); break;
-                case TypeId.DoubleTapId: thing = new CTDoubleTapId(reader); break;
+                case TypeId.DoubleTapId: thing = new CTDoubleTap(reader); break;
                 case TypeId.InputId: thing = new CTInput(reader); break;
                 case TypeId.InputSeriesId: thing = new CTInputSeries(reader); break;
                 case TypeId.TechId: thing = new CTCheckTech(reader); break;
-                case TypeId.GrabId: thing = new CTGrabId(reader); break;
+                case TypeId.GrabId: thing = new CTGrab(reader); break;
                 case TypeId.GrabAgentId: thing = new CTGrabbedAgent(reader); break;
                 case TypeId.SkinId: thing = new CTSkin(reader); break;
                 case TypeId.MoveId: thing = new CTMove(reader); break;

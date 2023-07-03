@@ -22,11 +22,11 @@ namespace JsonDumper.Converters
             {
                 TypeId.MultipleId => new CTMultiple(),
                 TypeId.CompareId => new CTCompareFloat(),
-                TypeId.DoubleTapId => new CTDoubleTapId(),
+                TypeId.DoubleTapId => new CTDoubleTap(),
                 TypeId.InputId => new CTInput(),
                 TypeId.InputSeriesId => new CTInputSeries(),
                 TypeId.TechId => new CTCheckTech(),
-                TypeId.GrabId => new CTGrabId(),
+                TypeId.GrabId => new CTGrab(),
                 TypeId.GrabAgentId => new CTGrabbedAgent(),
                 TypeId.SkinId => new CTSkin(),
                 TypeId.MoveId => new CTMove(),
